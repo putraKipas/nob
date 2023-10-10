@@ -1,7 +1,9 @@
-package main
+// package main
 
-import "fmt"
+// import "fmt"
 
-func main() {
-	fmt.Println("Hello")
-}
+// func main() {
+// 	age := 10
+// 	name := "NooBee"
+// 	fmt.Printf("Hallo, nama saya %v. Saya berumur %v", name, age)
+// }
