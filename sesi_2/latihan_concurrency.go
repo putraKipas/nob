@@ -28,3 +28,54 @@
 
 // a.Hit++
 // b.Hit++
+
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+// CLUE
+// func play(numchan chan int){
+// 	for {
+// 	  // get valu
+// 	  num := <-numchan
+// 	  v := rand.Intn(100-1) + 1
+// 	  log.Println(num)
+// 	  // set value again
+// 	  numchan <- v
+// 	}
+//   }
+
+func main() {
+	var wg sync.WaitGroup
+	ball := make(chan string)
+
+	wg.Add(2)
+
+	// Ping goroutine
+	go func() {
+		defer wg.Done()
+		for i := 0; i < 7; i++ {
+			ball <- "Ping"
+			time.Sleep(time.Second)
+			msg := <-ball
+			fmt.Println(msg)
+		}
+	}()
+
+	// Pong goroutine
+	go func() {
+		defer wg.Done()
+		for i := 0; i < 7; i++ {
+			msg := <-ball
+			fmt.Println(msg)
+			ball <- "Pong"
+			time.Sleep(time.Second)
+		}
+	}()
+
+	wg.Wait()
+}
